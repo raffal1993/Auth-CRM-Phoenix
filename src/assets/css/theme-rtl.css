@@ -11342,8 +11342,8 @@ textarea.form-control-lg {
   --phoenix-text-opacity: 1;
   color: rgba(var(--phoenix-info-600-rgb), var(--phoenix-text-opacity)) !important;
 }
-
-.text-white {
+ 
+.text-white { 
   --phoenix-text-opacity: 1;
   color: rgba(var(--phoenix-white-rgb), var(--phoenix-text-opacity)) !important;
 }

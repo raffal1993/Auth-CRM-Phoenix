@@ -1,0 +1,244 @@
+<main class="main" id="top">
+  <div class="container-fluid px-0">
+    <app-navbar-leads></app-navbar-leads>
+    <div class="content container">
+      <div class="pb-9">
+        <h2 *ngIf="filteredLeads$ | async as filteredLeads" class="mb-4 fw-bold fs-2">
+          {{ filteredLeads.length }} Companies
+        </h2>
+        <div
+          id="dealsTable"
+          data-list='{"valueNames":["name","email","phone","contact","company","date"],"page":10,"pagination":true}'
+        >
+          <div class="row g-3 justify-content-between mb-4">
+            <div *ngIf="isAdmin$ | async" class="col-auto">
+              <div class="d-md-flex justify-content-between">
+                <div>
+                  <button [routerLink]="'/create-lead'" class="btn btn-primary">
+                    <span class="fas fa-plus me-2"></span>Create Lead
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!--  -->
+            <!--  -->
+            <!--  -->
+            <!-- FILTER MODAL  -->
+
+            <div class="col-auto ml-auto">
+              <div class="d-flex">
+                <button
+                  class="btn px-3 btn-phoenix-secondary"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#filterModal"
+                  data-boundary="window"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  data-bs-reference="parent"
+                >
+                  <span class="fa-solid fa-filter text-primary" data-fa-transform="down-3"></span>
+                </button>
+                <div class="modal fade" id="filterModal" tabindex="-1">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content border">
+                      <form [formGroup]="filterLeadsForm" (ngSubmit)="onFilterLeadsFormSubmit(filterLeadsForm)">
+                        <div class="modal-header border-200 p-4">
+                          <h5 class="modal-title text-1000 fs-2 lh-sm">Filter</h5>
+                          <button class="btn p-1 text-900" type="button" data-bs-dismiss="modal" aria-label="Close">
+                            <span class="fas fa-times fs--1"> </span>
+                          </button>
+                        </div>
+                        <div class="modal-body pt-4 pb-2 px-4">
+                          <form [formGroupName]="'scope'" class="mb-3">
+                            <label class="fw-bold mb-2 text-1000" for="createDate">Scope</label>
+                            <div class="form-check">
+                              <input
+                                formControlName="internalProject"
+                                class="form-check-input"
+                                id="internalProject"
+                                type="checkbox"
+                              />
+                              <label class="form-check-label" for="internalProject">Internal Project</label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                formControlName="externalProject"
+                                class="form-check-input"
+                                id="externalProject"
+                                type="checkbox"
+                              />
+                              <label class="form-check-label" for="externalProject">External Project</label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                formControlName="recruitmentAgency"
+                                class="form-check-input"
+                                id="recruitmentAgency"
+                                type="checkbox"
+                              />
+                              <label class="form-check-label" for="recruitmentAgency">Recruitment Agency</label>
+                            </div>
+                          </form>
+                          <form [formGroupName]="'size'" class="mb-3">
+                            <label class="fw-bold mb-2 text-1000" for="createDate">Size</label>
+                            <div class="form-check">
+                              <input class="form-check-input" id="0-50" formControlName="0-50" type="checkbox" />
+                              <label class="form-check-label" for="0-50">0-50</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" id="51-100" formControlName="51-100" type="checkbox" />
+                              <label class="form-check-label" for="51-100">51-100</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" id="101-500" formControlName="101-500" type="checkbox" />
+                              <label class="form-check-label" for="101-500">101-500</label>
+                            </div>
+                            <div class="form-check">
+                              <input
+                                class="form-check-input"
+                                id="501-1000"
+                                formControlName="501-1000"
+                                type="checkbox"
+                              />
+                              <label class="form-check-label" for="501-1000">501-1000</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" id="1001+" formControlName="1001+" type="checkbox" />
+                              <label class="form-check-label" for="1001+">1001+</label>
+                            </div>
+                          </form>
+
+                          <form [formGroupName]="'hiring'" class="mb-3">
+                            <label class="fw-bold mb-2 text-1000">Hiring</label>
+                            <div class="form-check">
+                              <label class="form-check-label" for="isHiring">Is hiring</label>
+                              <select class="form-select" id="isHiring" formControlName="isHiring">
+                                <option value="any">Any</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                              </select>
+                            </div>
+
+                            <div class="form-check">
+                              <label class="form-check-label" for="juniors">Juniors</label>
+                              <select class="form-select" id="juniors" formControlName="juniors">
+                                <option value="any">Any</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                              </select>
+                            </div>
+
+                            <div class="form-check">
+                              <label class="form-check-label" for="talentProgram">Talent Program</label>
+                              <select class="form-select" id="talentProgram" formControlName="talentProgram">
+                                <option value="any">Any</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                              </select>
+                            </div>
+                          </form>
+                          <!--  -->
+                          <!--  -->
+                          <!--  -->
+                          <!--  -->
+                          <!--  -->
+                        </div>
+                        <div class="modal-footer d-flex justify-content-end align-items-center px-4 pb-4 border-0 pt-3">
+                          <button (click)="resetFilters()" class="btn btn-sm btn-phoenix-primary px-4 fs--2 my-0">
+                            <span class="fas fa-arrows-rotate me-2 fs--2"></span>Reset
+                          </button>
+                          <button data-bs-dismiss="modal" type="submit" class="btn btn-sm btn-primary px-9 fs--2 my-0">
+                            Done
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- FILTER MODAL  -->
+            <!--  -->
+            <!--  -->
+            <!--  -->
+          </div>
+          <!--  -->
+          <!--  -->
+          <!--  -->
+          <!-- TABLE  -->
+          <div class="px-4 mx-lg-n6 px-lg-6">
+            <div class="table-responsive scrollbar mx-n1 px-1 border-top">
+              <table class="table fs--1 mb-0 leads-table">
+                <thead>
+                  <tr>
+                    <th class="sort white-space-nowrap align-middle text-uppercase" scope="col">Name</th>
+                    <th class="sort align-middle ps-4 pe-5 text-uppercase border-end w-5" scope="col">Scope</th>
+                    <th class="sort align-middle ps-4 pe-5 text-uppercase border-end w-5" scope="col">Hiring</th>
+                    <th class="sort align-middle ps-4 pe-5 text-uppercase border-end" scope="col">Industry</th>
+                    <th class="sort align-middle ps-4 pe-5 text-uppercase border-end" scope="col">Location</th>
+                    <th class="sort align-middle ps-4 pe-5 text-uppercase border-end" scope="col">Size</th>
+                    <th class="sort align-middle ps-4 pe-5 text-uppercase border-end" scope="col">Revenue</th>
+                  </tr>
+                </thead>
+                <tbody class="list" id="deal-tables-body" *ngFor="let item of filteredLeads$ | async">
+                  <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+                    <td class="name align-middle white-space-nowrap">
+                      <div class="d-flex align-items-center">
+                        <div>
+                          <a class="fs-0 fw-bold" [href]="item.websiteLink">{{ item.name }}</a>
+                          <div class="d-flex align-items-center justify-content-start gap-2">
+                            <a [href]="item.linkedinLink"><i class="fa-brands fa-linkedin"></i></a>
+                            <a [href]="item.websiteLink"><i class="fa-solid fa-link"></i></a>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="align-middle white-space-nowrap fw-semi-bold text-1000 ps-4 border-end">
+                      <div *ngFor="let scopeItem of item.scope">
+                        <span class="badge badge-phoenix badge-phoenix-warning">{{ scopeItem }}</span>
+                      </div>
+                    </td>
+                    <td class="align-middle white-space-nowrap fw-semi-bold text-1000 ps-4 border-end">
+                      <div>
+                        Is hiring:
+                        <i class="fa-solid" [ngClass]="item.hiring.active ? 'fa-check' : 'fa-xmark'"></i>
+                      </div>
+                      <div>
+                        Juniors:
+                        <i class="fa-solid" [ngClass]="item.hiring.junior ? 'fa-check' : 'fa-xmark'"></i>
+                      </div>
+                      <div>
+                        Talent Program :
+                        <i class="fa-solid" [ngClass]="item.hiring.talentProgram ? 'fa-check' : 'fa-xmark'"></i>
+                      </div>
+                    </td>
+                    <td class="company align-middle white-space-nowrap text-600 ps-4 border-end fw-semi-bold text-1000">
+                      {{ item.industry }}
+                    </td>
+                    <td class="date align-middle white-space-nowrap text-600 ps-4 text-700 border-end">
+                      {{ item.location }}
+                    </td>
+                    <td class="date align-middle white-space-nowrap text-600 ps-4 text-700 border-end">
+                      <div>Total: {{ item.companySize.total }}</div>
+                      <div>Dev: {{ item.companySize.dev }}</div>
+                      <div>FE: {{ item.companySize.fe }}</div>
+                    </td>
+                    <td class="date align-middle white-space-nowrap text-600 ps-4 text-700 border-end">
+                      <div>{{ item.annualRevenue }}</div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- TABLE  -->
+          <!--  -->
+          <!--  -->
+          <!--  -->
+        </div>
+      </div>
+    </div>
+    <app-footer-leads></app-footer-leads>
+  </div>
+</main>

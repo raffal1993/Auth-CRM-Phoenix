@@ -1,0 +1,60 @@
+<app-bg-wrapper>
+  <div class="col-auto bg-100 dark__bg-1100 rounded-3 position-relative overflow-hidden auth-title-box">
+    <div class="bg-holder" style="background-image: url(assets/img/bg/38.png)"></div>
+    <!--/.bg-holder-->
+
+    <div class="position-relative px-4 pt-7 pb-7 pb-sm-5 pb-lg-7 text-center text-md-start px-md-7">
+      <div class="false">
+        <a [routerLink]="'/auth/login'">
+          <div class="d-flex align-items-center justify-content-center justify-content-md-start">
+            <img src="assets/img/icons/logo.png" alt="phoenix" width="48" />
+          </div>
+        </a>
+        <h3 class="t-3 text-black fs-2 fw-bold mt-3">Complete your profile</h3>
+        <p class="text-700 mb-0 mb-sm-3 font-base fs--5">Provide us with extra data about you</p>
+      </div>
+    </div>
+    <div class="position-relative z-index--1 mb-6 d-none d-sm-block text-center mt-md-15">
+      <img class="auth-title-box-img d-dark-none" src="assets/img/spot-illustrations/auth.png" alt="" /><img
+        class="auth-title-box-img d-light-none"
+        src="assets/img/spot-illustrations/auth-dark.png"
+        alt=""
+      />
+    </div>
+  </div>
+  <div class="col mx-auto">
+    <div class="auth-form-box">
+      <div class="text-center mb-5">
+        <div class="avatar avatar-4xl mb-4">
+          <img class="rounded-circle" src="assets/img/team/15.webp" alt="" />
+        </div>
+        <h2 class="fs-3">
+          <span class="fw-normal font-base">Hello </span>
+          <span *ngIf="email$ | async as email" class="font-base fw-bold">{{ email }} </span>
+        </h2>
+        <p class="text-700">Write down something about yourself</p>
+      </div>
+
+      <form class="auth-form-box" [formGroup]="bioForm" (ngSubmit)="onBioFormSubmitted(bioForm)">
+        <div class="mb-4 text-start">
+          <textarea
+            class="form-control mb-3 fs--1"
+            placeholder="Write bio here..."
+            rows="8"
+            formControlName="bio"
+          ></textarea>
+          <mat-error class="fs--1" *ngIf="bioForm.get('bio')!.invalid && bioForm.get('bio')!.touched"
+            >You need provide at least 10 words and 2 sentences</mat-error
+          >
+        </div>
+
+        <mat-error
+          *ngIf="bioForm.getError('HTTPResponseError') as error"
+          class="d-flex justify-content-center py-2 fs--1"
+          >{{ error }}</mat-error
+        >
+        <button class="btn btn-primary w-100">Send</button>
+      </form>
+    </div>
+  </div>
+</app-bg-wrapper>
