@@ -16,11 +16,7 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(
-    private _router: Router,
-    private _cdr: ChangeDetectorRef,
-    private _authApi: AuthApiService //     private _prism: HighlightService
-  ) {}
+  constructor(private _router: Router, private _cdr: ChangeDetectorRef, private _authApi: AuthApiService) {}
 
   readonly str = `
   import { Injectable, Inject } from '@angular/core';

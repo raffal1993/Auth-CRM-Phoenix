@@ -9,12 +9,14 @@ import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor.serv
 import { AuthInitializerService } from './initializers/auth-initializer.service';
 import { RefreshTokenInterceptor } from './interceptors/refresh-token.interceptor.service';
 import { HighlightService } from './components/login/prismjs.service';
+import { PrismModule } from './directive/prism.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, RouterOutlet, AppRoutingModule, HttpClientModule],
+  imports: [BrowserModule, BrowserAnimationsModule, RouterOutlet, AppRoutingModule, HttpClientModule, PrismModule],
   providers: [
     HighlightService,
+
     { provide: Storage, useValue: localStorage },
     { provide: Window, useValue: window },
     { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true },
