@@ -12,7 +12,7 @@ export class RegisterService {
 
   register({ email, password }: UserCredentialsModel): Observable<RegisterModel> {
     return this._httpClient
-      .post<ApiDataModel<RegisterModel>>(`${environment.BASE_URL}/auth/register2`, {
+      .post<ApiDataModel<RegisterModel>>(`${'https://us-central1-courses-auth.cloudfunctions.net'}/auth/register2`, {
         data: {
           email,
           password,

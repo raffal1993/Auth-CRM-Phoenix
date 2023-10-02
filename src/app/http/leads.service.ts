@@ -10,16 +10,22 @@ export class LeadsService {
   constructor(private _httpClient: HttpClient) {}
 
   getLeads(): Observable<LeadModel[]> {
-    return this._httpClient.get<ApiDataModel<LeadModel[]>>(`${environment.BASE_URL}/leads`).pipe(map((r) => r.data));
+    return this._httpClient
+      .get<ApiDataModel<LeadModel[]>>(`${'https://us-central1-courses-auth.cloudfunctions.net'}/leads`)
+      .pipe(map((r) => r.data));
   }
 
   createLead(newLead: LeadModel): Observable<unknown> {
-    return this._httpClient.post<unknown>(`${environment.BASE_URL}/leads`, { data: newLead });
+    return this._httpClient.post<unknown>(`${'https://us-central1-courses-auth.cloudfunctions.net'}/leads`, {
+      data: newLead,
+    });
   }
 
   getLeadsActivities(): Observable<LeadActivityModel[]> {
     return this._httpClient
-      .get<ApiDataModel<LeadActivityModel[]>>(`${environment.BASE_URL}/leads/activities`)
+      .get<ApiDataModel<LeadActivityModel[]>>(
+        `${'https://us-central1-courses-auth.cloudfunctions.net'}/leads/activities`
+      )
       .pipe(map((r) => r.data));
   }
 }

@@ -11,7 +11,7 @@ export class BioService {
 
   getUserBio(): Observable<CompleteProfileModel | HttpErrorResponse> {
     return this._httpClient
-      .get<ApiDataModel<CompleteProfileModel>>(`${environment.BASE_URL}/auth/my-bio`)
+      .get<ApiDataModel<CompleteProfileModel>>(`${'https://us-central1-courses-auth.cloudfunctions.net'}/auth/my-bio`)
       .pipe(
         map((r) => r.data),
         catchError((e) => {
@@ -22,7 +22,7 @@ export class BioService {
   }
 
   addUserBio(content: string): Observable<Object> {
-    return this._httpClient.post(`${environment.BASE_URL}/auth/add-bio`, {
+    return this._httpClient.post(`${'https://us-central1-courses-auth.cloudfunctions.net'}/auth/add-bio`, {
       data: {
         content,
       },

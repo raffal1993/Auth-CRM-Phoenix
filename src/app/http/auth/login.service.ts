@@ -13,7 +13,7 @@ export class LoginService {
 
   login({ email, password }: UserCredentialsModel): Observable<LoginModel> {
     return this._httpClient
-      .post<ApiDataModel<LoginModel>>(`${environment.BASE_URL}/auth/login`, {
+      .post<ApiDataModel<LoginModel>>(`${'https://us-central1-courses-auth.cloudfunctions.net'}/auth/login`, {
         data: {
           email,
           password,

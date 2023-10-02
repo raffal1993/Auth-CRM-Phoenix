@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { LoginComponent } from './login.component';
 import { BgWrapperComponentModule } from 'src/app/template-UI/bg-wrapper/bg-wrapper.component-module';
+import { PrismModule } from 'src/app/directive/prism.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { BgWrapperComponentModule } from 'src/app/template-UI/bg-wrapper/bg-wrap
     CommonModule,
     MatButtonModule,
     BgWrapperComponentModule,
+    PrismModule,
   ],
   declarations: [LoginComponent],
   providers: [],

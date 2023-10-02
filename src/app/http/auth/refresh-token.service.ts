@@ -14,7 +14,7 @@ export class RefreshTokenService {
     const refreshToken = this._authStorage.refreshToken();
 
     return this._httpClient
-      .post<ApiDataModel<RefreshTokenModel>>(`${environment.BASE_URL}/auth/refresh`, {
+      .post<ApiDataModel<RefreshTokenModel>>(`${'https://us-central1-courses-auth.cloudfunctions.net'}/auth/refresh`, {
         data: {
           refreshToken,
         },

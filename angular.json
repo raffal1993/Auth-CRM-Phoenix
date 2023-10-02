@@ -20,7 +20,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/app",
+            "outputPath": "docs",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -93,11 +93,20 @@
             "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "src/styles.scss"],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
   },
-  "cli": {
-    "analytics": false
+  "deploy": {
+    "builder": "angular-cli-ghpages:deploy",
+    "options": {
+      "baseHref": "https://github.com/raffal1993/Auth-CRM-Phoenix"
+    },
+    "cli": {
+      "analytics": false
+    }
   }
 }

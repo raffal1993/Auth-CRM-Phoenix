@@ -15,14 +15,16 @@ export class UserAuthService {
   }
 
   private _me(): Observable<UserAuthDataModel> {
-    return this._httpClient.get<ApiDataModel<UserAuthDataModel>>(`${environment.BASE_URL}/auth/me`).pipe(
-      shareReplay(1),
-      map((r) => r.data),
-      tap((data) => this._authStorage.setUserData(data)),
-      catchError((e) => {
-        console.warn(e);
-        return of(e);
-      })
-    );
+    return this._httpClient
+      .get<ApiDataModel<UserAuthDataModel>>(`${'https://us-central1-courses-auth.cloudfunctions.net'}/auth/me`)
+      .pipe(
+        shareReplay(1),
+        map((r) => r.data),
+        tap((data) => this._authStorage.setUserData(data)),
+        catchError((e) => {
+          console.warn(e);
+          return of(e);
+        })
+      );
   }
 }
